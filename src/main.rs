@@ -4,7 +4,7 @@ use std::error::Error;
 
 use rayon::prelude::*;
 
-use rand::Rng;
+use rand::{distributions::Uniform, Rng};
 
 #[macro_use]
 extern crate log;
@@ -26,7 +26,7 @@ struct Args {
 
     /// Extra roll advantage effects
     #[clap(short, long, value_parser, default_value_t = 0)]
-    advantage: u32,
+    advantage: usize,
 }
 
 enum Outcome {
@@ -38,21 +38,21 @@ struct GameResult {
     outcome: Outcome,
     damage: u32,
     squirrels: u32,
-    rolls: u32,
+    rolls: usize,
 }
 
 struct Game {
-    roll_advantage: u32,
+    roll_advantage: usize,
+    rolls: usize,
     damage: u32,
     squirrels: u32,
     include_squirrels: bool,
-    rolls: u32,
     activations_left: u32,
     loyalty: i32,
 }
 
 impl Game {
-    fn new(include_squirrels: bool, roll_advantage: u32) -> Self {
+    fn new(include_squirrels: bool, roll_advantage: usize) -> Self {
         Self {
             roll_advantage,
             activations_left: 1,
@@ -88,8 +88,6 @@ impl Game {
     fn activate(&mut self) {
         self.activations_left -= 1;
 
-        let mut rng = rand::thread_rng();
-
         let rolls_to_take = 1 + self.roll_advantage;
         self.rolls += rolls_to_take;
 
@@ -99,17 +97,16 @@ impl Game {
             self.activations_left
         );
 
-        let mut max_roll = 0;
-        for _ in 0..rolls_to_take {
-            let roll: u32 = rng.gen_range(1..=6);
-            log::debug!("Rolled a {roll}.");
+        let mut rng = rand::thread_rng();
+        let die_range = Uniform::new_inclusive::<u32, u32>(1, 6);
+        let max_roll = (&mut rng)
+            .sample_iter(die_range)
+            .take(rolls_to_take)
+            .inspect(|roll| log::debug!("Rolled a {roll}."))
+            .max()
+            .unwrap_or(0);
 
-            if roll > max_roll {
-                max_roll = roll;
-            }
-        }
-
-        log::debug!("Kept the max roll {max_roll}.");
+        log::debug!("Kept the max roll of {max_roll}.");
 
         // 1 or 2 — [+2], then create two 1/1 green Squirrel creature tokens. They gain haste until end of turn.
         if max_roll == 1 || max_roll == 2 {
@@ -136,7 +133,7 @@ impl Game {
             self.loyalty -= 2;
 
             log::debug!(
-                "[Loyalty: {}][Activations: {}] -2: Comet, Stellar Pup dealt {} damage.",
+                "[Loyalty: {}][Activations: {}] -2: Comet, Stellar Pup deals {} damage.",
                 self.loyalty,
                 self.activations_left,
                 self.loyalty + 2
