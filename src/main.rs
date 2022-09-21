@@ -111,7 +111,7 @@ impl Game {
 
         log::debug!("Kept the max roll {max_roll}.");
 
-        // 1 or 2 — [+2] , then create two 1/1 green Squirrel creature tokens. They gain haste until end of turn.
+        // 1 or 2 — [+2], then create two 1/1 green Squirrel creature tokens. They gain haste until end of turn.
         if max_roll == 1 || max_roll == 2 {
             self.loyalty += 2;
             self.squirrels += 2;
@@ -123,7 +123,7 @@ impl Game {
 
         // 3 — [-1], then return a card with mana value 2 or less from your graveyard to your hand.
         } else if max_roll == 3 {
-            self.loyalty -= 2;
+            self.loyalty -= 1;
             log::debug!(
                 "[Loyalty: {}][Activations: {}] -1: No action.",
                 self.loyalty,

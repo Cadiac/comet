@@ -31,58 +31,58 @@ OPTIONS:
 ```
 ➜ ./comet --games 100000 --squirrels --advantage 0
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 0.70%
-[INFO ]                  Average damage: 2.72
+[INFO ]                  Win percentage: 0.75%
+[INFO ]                  Average damage: 2.75
 [INFO ]               Average squirrels: 1.00
 [INFO ]                   Average rolls: 1.50
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 1
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 5.19%
-[INFO ]                  Average damage: 6.07
-[INFO ]               Average squirrels: 0.56
-[INFO ]                   Average rolls: 5.00
+[INFO ]                  Win percentage: 5.85%
+[INFO ]                  Average damage: 6.33
+[INFO ]               Average squirrels: 0.57
+[INFO ]                   Average rolls: 5.05
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 2
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 14.70%
-[INFO ]                  Average damage: 10.90
-[INFO ]               Average squirrels: 0.32
-[INFO ]                   Average rolls: 13.21
+[INFO ]                  Win percentage: 16.38%
+[INFO ]                  Average damage: 12.07
+[INFO ]               Average squirrels: 0.35
+[INFO ]                   Average rolls: 14.07
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 3
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 28.28%
-[INFO ]                  Average damage: 20.70
-[INFO ]               Average squirrels: 0.20
-[INFO ]                   Average rolls: 32.81
+[INFO ]                  Win percentage: 29.88%
+[INFO ]                  Average damage: 23.74
+[INFO ]               Average squirrels: 0.22
+[INFO ]                   Average rolls: 36.05
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 4
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 41.74%
-[INFO ]                  Average damage: 62.52
-[INFO ]               Average squirrels: 0.16
-[INFO ]                   Average rolls: 97.38
+[INFO ]                  Win percentage: 42.75%
+[INFO ]                  Average damage: 77.45
+[INFO ]               Average squirrels: 0.19
+[INFO ]                   Average rolls: 111.40
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 5
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 53.82%
-[INFO ]                  Average damage: 1044.19
-[INFO ]               Average squirrels: 0.33
-[INFO ]                   Average rolls: 729.06
+[INFO ]                  Win percentage: 54.31%
+[INFO ]                  Average damage: 1320.09
+[INFO ]               Average squirrels: 0.38
+[INFO ]                   Average rolls: 842.60
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 6
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 63.28%
-[INFO ]                  Average damage: 4577.95
-[INFO ]               Average squirrels: 0.26
-[INFO ]                   Average rolls: 2014.52
+[INFO ]                  Win percentage: 63.25%
+[INFO ]                  Average damage: 4710.12
+[INFO ]               Average squirrels: 0.27
+[INFO ]                   Average rolls: 2031.81
 [INFO ] ============================================================
 ➜ ./comet --games 100000 --squirrels --advantage 7
 [INFO ] =======================[ RESULTS ]==========================
-[INFO ]                  Win percentage: 70.53%
-[INFO ]                  Average damage: 6477.95
+[INFO ]                  Win percentage: 70.72%
+[INFO ]                  Average damage: 6528.80
 [INFO ]               Average squirrels: 0.10
-[INFO ]                   Average rolls: 2678.84
+[INFO ]                   Average rolls: 2682.23
 [INFO ] ============================================================
 ```
