@@ -70,4 +70,83 @@ OPTIONS:
 [INFO ]                   Average rolls: 5.05
 [INFO ]                 Average returns: 0.35
 [INFO ] ============================================================
+
+➜ ./comet --games 100000 --advantage 1 --verbose
+[DEBUG] [Loyalty: 5][Activations: 0] 0: Roll a six-sided die.
+[DEBUG] Rolled a 6.
+[DEBUG] Rolled a 1.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 6][Activations: 2] +1: Two extra activations.
+[DEBUG] [Loyalty: 6][Activations: 1] 0: Roll a six-sided die.
+[DEBUG] Rolled a 6.
+[DEBUG] Rolled a 4.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 7][Activations: 3] +1: Two extra activations.
+[DEBUG] [Loyalty: 7][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 2.
+[DEBUG] Rolled a 5.
+[DEBUG] Kept the max roll of 5.
+[DEBUG] [Loyalty: 5][Activations: 2] -2: Comet, Stellar Pup deals 7 damage.
+[DEBUG] [Loyalty: 5][Activations: 1] 0: Roll a six-sided die.
+[DEBUG] Rolled a 6.
+[DEBUG] Rolled a 2.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 6][Activations: 3] +1: Two extra activations.
+[DEBUG] [Loyalty: 6][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 4.
+[DEBUG] Rolled a 6.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 7][Activations: 4] +1: Two extra activations.
+[DEBUG] [Loyalty: 7][Activations: 3] 0: Roll a six-sided die.
+[DEBUG] Rolled a 4.
+[DEBUG] Rolled a 2.
+[DEBUG] Kept the max roll of 4.
+[DEBUG] [Loyalty: 5][Activations: 3] -2: Comet, Stellar Pup deals 7 damage.
+[DEBUG] [Loyalty: 5][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 5.
+[DEBUG] Rolled a 5.
+[DEBUG] Kept the max roll of 5.
+[DEBUG] [Loyalty: 3][Activations: 2] -2: Comet, Stellar Pup deals 5 damage.
+[DEBUG] [Loyalty: 3][Activations: 1] 0: Roll a six-sided die.
+[DEBUG] Rolled a 4.
+[DEBUG] Rolled a 6.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 4][Activations: 3] +1: Two extra activations.
+[DEBUG] [Loyalty: 4][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 5.
+[DEBUG] Rolled a 2.
+[DEBUG] Kept the max roll of 5.
+[DEBUG] [Loyalty: 2][Activations: 2] -2: Comet, Stellar Pup deals 4 damage.
+[DEBUG] [Loyalty: 2][Activations: 1] 0: Roll a six-sided die.
+[DEBUG] Rolled a 1.
+[DEBUG] Rolled a 6.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 3][Activations: 3] +1: Two extra activations.
+[DEBUG] [Loyalty: 3][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 5.
+[DEBUG] Rolled a 6.
+[DEBUG] Kept the max roll of 6.
+[DEBUG] [Loyalty: 4][Activations: 4] +1: Two extra activations.
+[DEBUG] [Loyalty: 4][Activations: 3] 0: Roll a six-sided die.
+[DEBUG] Rolled a 1.
+[DEBUG] Rolled a 5.
+[DEBUG] Kept the max roll of 5.
+[DEBUG] [Loyalty: 2][Activations: 3] -2: Comet, Stellar Pup deals 4 damage.
+[DEBUG] [Loyalty: 2][Activations: 2] 0: Roll a six-sided die.
+[DEBUG] Rolled a 3.
+[DEBUG] Rolled a 3.
+[DEBUG] Kept the max roll of 3.
+[DEBUG] [Loyalty: 1][Activations: 2] -1: No action. ("Return a card with mana value 2 or less from your graveyard to your hand.")
+[DEBUG] [Loyalty: 1][Activations: 1] 0: Roll a six-sided die.
+[DEBUG] Rolled a 2.
+[DEBUG] Rolled a 3.
+[DEBUG] Kept the max roll of 3.
+[DEBUG] [Loyalty: 0][Activations: 1] -1: No action. ("Return a card with mana value 2 or less from your graveyard to your hand.")
+[INFO ] =======================[ RESULTS ]==========================
+[INFO ]                  Win percentage: 100.00%
+[INFO ]                  Average damage: 27.00
+[INFO ]               Average squirrels: 0.00
+[INFO ]                   Average rolls: 28.00
+[INFO ]                 Average returns: 2.00
+[INFO ] ============================================================
 ```
