@@ -2,8 +2,9 @@
 
 How likely does [Comet, Stellar Pup](https://scryfall.com/card/unf/166/comet-stellar-pup) activation win in a game of Magic: The Gathering with [Pixie Guide](https://scryfall.com/card/afr/66/pixie-guide) like effects on the battlefield?
 
-![Comet, Stellar Pup](https://c1.scryfall.com/file/scryfall-cards/normal/front/a/7/a76fa8d4-923d-4afc-ba47-ba10fc0fe46e.jpg?1663720554)
-![Pixie Guide](https://c1.scryfall.com/file/scryfall-cards/normal/front/c/6/c65631b9-ca62-4851-9eca-9c760fb1a177.jpg?1627756212)
+Comet, Stellar Pup             |  Pixie Guide
+:-------------------------:|:-------------------------:
+![](https://c1.scryfall.com/file/scryfall-cards/normal/front/a/7/a76fa8d4-923d-4afc-ba47-ba10fc0fe46e.jpg?1663720554)  |  ![](https://c1.scryfall.com/file/scryfall-cards/normal/front/c/6/c65631b9-ca62-4851-9eca-9c760fb1a177.jpg?1627756212)
 
 ## Results
 
