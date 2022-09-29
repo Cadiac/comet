@@ -39,11 +39,13 @@ struct GameResult {
     damage: u32,
     squirrels: u32,
     rolls: usize,
+    returns: usize,
 }
 
 struct Game {
     roll_advantage: usize,
     rolls: usize,
+    returns: usize,
     damage: u32,
     squirrels: u32,
     include_squirrels: bool,
@@ -59,6 +61,7 @@ impl Game {
             squirrels: 0,
             damage: 0,
             rolls: 0,
+            returns: 0,
             loyalty: 5,
             include_squirrels,
         }
@@ -82,6 +85,7 @@ impl Game {
             damage: self.damage,
             squirrels: self.squirrels,
             rolls: self.rolls,
+            returns: self.returns,
         }
     }
 
@@ -121,8 +125,9 @@ impl Game {
         // 3 — [-1], then return a card with mana value 2 or less from your graveyard to your hand.
         } else if max_roll == 3 {
             self.loyalty -= 1;
+            self.returns += 1;
             log::debug!(
-                "[Loyalty: {}][Activations: {}] -1: No action.",
+                "[Loyalty: {}][Activations: {}] -1: No action. (\"Return a card with mana value 2 or less from your graveyard to your hand.\")",
                 self.loyalty,
                 self.activations_left
             );
@@ -180,13 +185,16 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut total_damage = 0;
     let mut total_rolls = 0;
     let mut total_squirrels = 0;
+    let mut total_returns = 0;
 
     for game in results {
         total_damage += game.damage;
         total_rolls += game.rolls;
         total_squirrels += game.squirrels;
+        total_returns += game.returns;
     }
 
+    let average_returns = total_returns as f32 / simulated_games as f32;
     let average_damage = total_damage as f32 / simulated_games as f32;
     let average_rolls = total_rolls as f32 / simulated_games as f32;
     let average_squirrels = total_squirrels as f32 / simulated_games as f32;
@@ -196,6 +204,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     info!("                 Average damage: {average_damage:.2}");
     info!("              Average squirrels: {average_squirrels:.2}");
     info!("                  Average rolls: {average_rolls:.2}");
+    info!("                Average returns: {average_returns:.2}");
     info!("============================================================");
 
     Ok(())
