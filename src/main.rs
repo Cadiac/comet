@@ -27,6 +27,14 @@ struct Args {
     /// Extra roll advantage effects
     #[clap(short, long, value_parser, default_value_t = 0)]
     advantage: usize,
+
+    /// Starting loyalty of the planeswalker
+    #[clap(short, long, value_parser, default_value_t = 5)]
+    loyalty: i32,
+
+    /// Target damage to deal
+    #[clap(short, long, value_parser, default_value_t = 20)]
+    damage: u32,
 }
 
 enum Outcome {
@@ -51,10 +59,11 @@ struct Game {
     include_squirrels: bool,
     activations_left: u32,
     loyalty: i32,
+    target_dmg: u32,
 }
 
 impl Game {
-    fn new(include_squirrels: bool, roll_advantage: usize) -> Self {
+    fn new(include_squirrels: bool, roll_advantage: usize, loyalty: i32, target_dmg: u32) -> Self {
         Self {
             roll_advantage,
             activations_left: 1,
@@ -62,8 +71,9 @@ impl Game {
             damage: 0,
             rolls: 0,
             returns: 0,
-            loyalty: 5,
+            loyalty,
             include_squirrels,
+            target_dmg,
         }
     }
 
@@ -72,8 +82,8 @@ impl Game {
             self.activate()
         }
 
-        let outcome = if self.damage >= 20
-            || self.include_squirrels && (self.damage + self.squirrels) >= 20
+        let outcome = if self.damage >= self.target_dmg
+            || self.include_squirrels && (self.damage + self.squirrels) >= self.target_dmg
         {
             Outcome::Win
         } else {
@@ -167,7 +177,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let results: Vec<_> = (0..simulated_games)
         .into_par_iter()
         .map(|_| {
-            let mut game = Game::new(cli.squirrels, cli.advantage);
+            let mut game = Game::new(cli.squirrels, cli.advantage, cli.loyalty, cli.damage);
             game.run()
         })
         .collect();

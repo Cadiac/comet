@@ -6,6 +6,8 @@ Comet, Stellar Pup             |  Pixie Guide
 :-------------------------:|:-------------------------:
 ![](https://c1.scryfall.com/file/scryfall-cards/normal/front/a/7/a76fa8d4-923d-4afc-ba47-ba10fc0fe46e.jpg?1663720554)  |  ![](https://c1.scryfall.com/file/scryfall-cards/normal/front/c/6/c65631b9-ca62-4851-9eca-9c760fb1a177.jpg?1627756212)
 
+This tool can also be used to calculate probability of winning from any starting game state, like to find the probability of dealing at least 11 damage with Comet already at 9 loyalty (7.39%).
+
 ## Results
 
 | Additional roll effects | Win %  | Squirrels | Damage  | Returns | Total rolls |
@@ -38,9 +40,11 @@ USAGE:
 
 OPTIONS:
     -a, --advantage <ADVANTAGE>    Extra roll advantage effects [default: 0]
+    -d, --damage <DAMAGE>          Target damage to deal [default: 20]
     -g, --games <GAMES>            Number of games to simulate [default: 100]
-    -h, --help                     Print help information
+    -l, --loyalty <LOYALTY>        Starting loyalty of the planeswalker [default: 5]
     -s, --squirrels                Should combat damage using squirrels be included
+    -h, --help                     Print help information
     -v, --verbose                  Print game actions debug output (slow)
     -V, --version                  Print version information
 
