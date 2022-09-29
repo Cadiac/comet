@@ -55,6 +55,7 @@ OPTIONS:
 [INFO ]                  Average damage: 2.75
 [INFO ]               Average squirrels: 1.00
 [INFO ]                   Average rolls: 1.50
+[INFO ]                 Average returns: 0.24
 [INFO ] ============================================================
 
 ➜ ./comet --games 100000 --squirrels --advantage 1
@@ -63,5 +64,6 @@ OPTIONS:
 [INFO ]                  Average damage: 6.33
 [INFO ]               Average squirrels: 0.57
 [INFO ]                   Average rolls: 5.05
+[INFO ]                 Average returns: 0.35
 [INFO ] ============================================================
 ```
