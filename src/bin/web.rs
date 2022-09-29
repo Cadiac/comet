@@ -7,13 +7,6 @@ use yew::prelude::*;
 use comet::game::{Outcome, GameResult};
 use comet::simulator::{Simulator, Status, Cmd};
 
-#[derive(Debug, PartialEq)]
-enum State {
-    Idle,
-    Running,
-    Cancelling,
-}
-
 #[derive(Debug)]
 pub enum Msg {
     ChangeSimulationsCount(usize),
