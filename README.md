@@ -53,7 +53,7 @@ OPTIONS:
 ### Examples
 
 ```
-➜ ./comet --games 100000 --squirrels --advantage 0
+➜ cargo run --bin comet -- --games 100000 --squirrels --advantage 0
 [INFO ] =======================[ RESULTS ]==========================
 [INFO ]                  Win percentage: 0.75%
 [INFO ]                  Average damage: 2.75
@@ -62,7 +62,7 @@ OPTIONS:
 [INFO ]                 Average returns: 0.24
 [INFO ] ============================================================
 
-➜ ./comet --games 100000 --squirrels --advantage 1
+➜ cargo run --bin comet -- --games 100000 --squirrels --advantage 1
 [INFO ] =======================[ RESULTS ]==========================
 [INFO ]                  Win percentage: 5.85%
 [INFO ]                  Average damage: 6.33
@@ -71,7 +71,7 @@ OPTIONS:
 [INFO ]                 Average returns: 0.35
 [INFO ] ============================================================
 
-➜ ./comet --games 100000 --advantage 1 --verbose
+➜ cargo run --bin comet -- --games 100000 --advantage 1 --verbose
 [DEBUG] [Loyalty: 5][Activations: 0] 0: Roll a six-sided die.
 [DEBUG] Rolled a 6.
 [DEBUG] Rolled a 1.
