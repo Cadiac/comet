@@ -210,7 +210,9 @@ impl Component for App {
                         </header>
 
                         <div class="grid">
-                            <img class="card" src="comet.jpeg"/>
+                            <div class="card-container">
+                                <img class="card" src="comet.jpeg"/>
+                            </div>
                             <div>
                                 <div class="grid">
                                     <label class="label" for="simulated-games">
@@ -293,7 +295,7 @@ impl Component for App {
                         </div>
 
                         <footer>
-                            <div>
+                            <div class="progress-container">
                                 <label>{"Progress:"}</label>
                                 <span>{format!("{progress}/{total_games}")}</span>
                                 <progress class="progress primary" value={progress.to_string()} max={total_games.to_string()}>

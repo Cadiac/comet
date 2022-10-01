@@ -44,12 +44,20 @@
     margin-top: 0px;
 }
 
+.progress-container {
+    margin-bottom: var(--spacing);
+}
+
 .buttons {
     margin-top: calc(var(--spacing) * 1.5);
 }
 
 .buttons div[role=button] {
     margin-right: calc(var(--spacing) * .5);
+}
+
+.card-container {
+    padding: 0 var(--spacing) var(--spacing) var(--spacing);
 }
 
 .card {
