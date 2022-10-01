@@ -1,0 +1,64 @@
+/* Red Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --primary: #d74133;
+  --primary-hover: #d32f2f;
+  --primary-focus: rgba(229, 57, 53, 0.125);
+  --primary-inverse: #FFF;
+}
+
+/* Red Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #d74133;
+    --primary-hover: #f44336;
+    --primary-focus: rgba(229, 57, 53, 0.25);
+    --primary-inverse: #FFF;
+  }
+}
+
+/* Red Dark scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme="dark"] {
+  --primary: #d74133;
+  --primary-hover: #f44336;
+  --primary-focus: rgba(229, 57, 53, 0.25);
+  --primary-inverse: #FFF;
+}
+
+/* Red (Common styles) */
+:root {
+  --form-element-active-border-color: var(--primary);
+  --form-element-focus-color: var(--primary-focus);
+  --switch-color: var(--primary-inverse);
+  --switch-checked-background-color: var(--primary);
+}
+
+.title {
+    margin-bottom: 0px;
+}
+
+.main-container {
+    margin-top: 0px;
+}
+
+.buttons {
+    margin-top: calc(var(--spacing) * 1.5);
+}
+
+.buttons div[role=button] {
+    margin-right: calc(var(--spacing) * .5);
+}
+
+.card {
+    border-radius: 4.75% / 3.5%;
+    -webkit-box-shadow: 1px 1px 8px rgb(0 0 0 / 50%);
+    box-shadow: 1px 1px 8px rgb(0 0 0 / 50%);
+}
+
+.disclaimer {
+    text-align: center;
+    color: var(--secondary);
+}

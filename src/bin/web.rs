@@ -203,28 +203,47 @@ impl Component for App {
 
         html! {
             <>
-                <section class="section">
-                    <div class="container">
-                        <div class="box">
+                <main class="container">
+                    <article class="main-container">
+                        <header>
                             <h1 class="title">{ "Comet, Stellar Pup Simulator 🐶" }</h1>
-                            <hr/>
+                        </header>
+
+                        <div class="grid">
+                            <img class="card" src="comet.jpeg"/>
                             <div>
-                                <div class="field">
-                                    <label class="label" for="simulated-games">{"Starting loyalty:"}</label>
-                                    <input class="input is-info" type="number" id="starting-loyalty" step="1" min="1" value={self.loyalty.to_string()}
-                                        onchange={link.batch_callback(move |e: Event| {
-                                            let target: Option<EventTarget> = e.target();
-                                            let select = target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
-                                            select.map(|select| {
-                                                let count = select.value();
-                                                Msg::ChangeLoyalty(count.parse().unwrap_or(5))
-                                            })
-                                        })}
-                                    />
+                                <div class="grid">
+                                    <label class="label" for="simulated-games">
+                                        {"Starting loyalty:"}
+                                        <input class="input is-info" type="number" id="starting-loyalty" step="1" min="1" value={self.loyalty.to_string()}
+                                            onchange={link.batch_callback(move |e: Event| {
+                                                let target: Option<EventTarget> = e.target();
+                                                let select = target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
+                                                select.map(|select| {
+                                                    let count = select.value();
+                                                    Msg::ChangeLoyalty(count.parse().unwrap_or(5))
+                                                })
+                                            })}
+                                        />
+                                    </label>
+
+                                    <label class="label" for="simulated-games">
+                                        {"Opponent health:"}
+                                        <input class="input is-info" type="number" id="damage" step="1" min="1" value={self.damage.to_string()}
+                                            onchange={link.batch_callback(move |e: Event| {
+                                                let target: Option<EventTarget> = e.target();
+                                                let select = target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
+                                                select.map(|select| {
+                                                    let count = select.value();
+                                                    Msg::ChangeDamage(count.parse().unwrap_or(20))
+                                                })
+                                            })}
+                                        />
+                                    </label>
                                 </div>
 
-                                <div class="field">
-                                    <label class="label" for="simulated-games">{"Extra roll advantage effects:"}</label>
+                                <label class="label" for="roll-advantage">
+                                    {"Extra roll advantage effects:"}
                                     <input class="input is-info" type="number" id="roll-advantage" step="1" min="1" value={self.advantage.to_string()}
                                         onchange={link.batch_callback(move |e: Event| {
                                             let target: Option<EventTarget> = e.target();
@@ -235,24 +254,10 @@ impl Component for App {
                                             })
                                         })}
                                     />
-                                </div>
+                                </label>
 
-                                <div class="field">
-                                    <label class="label" for="simulated-games">{"Damage:"}</label>
-                                    <input class="input is-info" type="number" id="damage" step="1" min="1" value={self.damage.to_string()}
-                                        onchange={link.batch_callback(move |e: Event| {
-                                            let target: Option<EventTarget> = e.target();
-                                            let select = target.and_then(|t| t.dyn_into::<HtmlInputElement>().ok());
-                                            select.map(|select| {
-                                                let count = select.value();
-                                                Msg::ChangeDamage(count.parse().unwrap_or(20))
-                                            })
-                                        })}
-                                    />
-                                </div>
-
-                                <div class="field">
-                                    <label class="label" for="simulated-games">{"Games to simulate:"}</label>
+                                <label class="label" for="simulated-games">
+                                    {"Games to simulate:"}
                                     <input class="input is-info" type="number" id="simulated-games" step="1000" min="0" value={self.simulations.to_string()}
                                         onchange={link.batch_callback(move |e: Event| {
                                             let target: Option<EventTarget> = e.target();
@@ -263,70 +268,85 @@ impl Component for App {
                                             })
                                         })}
                                     />
-                                </div>
+                                </label>
 
-                                <div class="field">
-                                    <label class="checkbox">
-                                        <input type="checkbox" checked={self.squirrels} onchange={link.callback(|_| Msg::ToggleSquirrels)}/>
-                                        {" Include damage from squirrels"}
-                                    </label>
-                                </div>
+                                <label for="squirrels">
+                                    <input type="checkbox" id="squirrels" checked={self.squirrels} onchange={link.callback(|_| Msg::ToggleSquirrels)}/>
+                                    {"Include damage from squirrels"}
+                                </label>
 
                                 <div class="buttons">
-                                    <button class={if is_ready { "button is-primary" } else { "button is-primary is-outlined" }} type="button"
+                                    <div class={if is_ready { "primary" } else { "primary outline" }}
+                                        type="submit"    
+                                        role="button" 
                                         disabled={!is_ready}
+                                        aria-busy={if !is_ready { "true" } else { "" }}
                                         onclick={link.callback(|_| Msg::BeginSimulation)}>
                                         { "Run simulation ▶︎" }
-                                    </button>
+                                    </div>
 
-                                    <button class="button" type="button" disabled={!self.is_busy} onclick={link.callback(|_| Msg::CancelSimulation)}>
+                                    <div role="button" disabled={!self.is_busy} onclick={link.callback(|_| Msg::CancelSimulation)}>
                                         { "Cancel" }
-                                    </button>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <hr/>
-
-                            <div class="field">
-                                <label class="label">{"Progress:"}</label>
-                                <span class="is-small">{format!("{progress}/{total_games}")}</span>
-                                <progress class="progress is-primary" value={progress.to_string()} max={total_games.to_string()}>
+                        <footer>
+                            <div>
+                                <label>{"Progress:"}</label>
+                                <span>{format!("{progress}/{total_games}")}</span>
+                                <progress class="progress primary" value={progress.to_string()} max={total_games.to_string()}>
                                     { format!("{progress}/{total_games}") }
                                 </progress>
                             </div>
 
-                            <hr/>
-
                             <div>
-                                <label class="label">{"Results:"}</label>
-                                <table class="table is-bordered is-hoverable is-fullwidth">
-                                    <thead>
-                                        <tr>
-                                            <th><abbr title="Wins">{"Wins"}</abbr></th>
-                                            <th><abbr title="Losses">{"Losses"}</abbr></th>
-                                            <th><abbr title="Win percentage">{"Win %"}</abbr></th>
-                                            <th><abbr title="Average damage">{"Damage"}</abbr></th>
-                                            <th><abbr title="Average number of squirrels produced">{"Squirrels"}</abbr></th>
-                                            <th><abbr title="Average number of cards returned from graveyard">{"Returns"}</abbr></th>
-                                            <th><abbr title="Average total rolls">{"Rolls"}</abbr></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{self.results.wins}</td>
-                                            <td>{self.results.losses}</td>
-                                            <td>{format!("{:.2}%", self.results.win_percentage)}</td>
-                                            <td>{format!("{:.2}", self.results.avg_damage)}</td>
-                                            <td>{format!("{:.2}", self.results.avg_squirrels)}</td>
-                                            <td>{format!("{:.2}", self.results.avg_returns)}</td>
-                                            <td>{format!("{:.2}", self.results.avg_rolls)}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <label>{"Results:"}</label>
+                                <figure>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><abbr title="Wins">{"Wins"}</abbr></th>
+                                                <th><abbr title="Losses">{"Losses"}</abbr></th>
+                                                <th><abbr title="Win percentage">{"Win %"}</abbr></th>
+                                                <th><abbr title="Average damage">{"Damage"}</abbr></th>
+                                                <th><abbr title="Average number of squirrels produced">{"Squirrels"}</abbr></th>
+                                                <th><abbr title="Average number of cards returned from graveyard">{"Returns"}</abbr></th>
+                                                <th><abbr title="Average total rolls">{"Rolls"}</abbr></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{self.results.wins}</td>
+                                                <td>{self.results.losses}</td>
+                                                <td>{format!("{:.2}%", self.results.win_percentage)}</td>
+                                                <td>{format!("{:.2}", self.results.avg_damage)}</td>
+                                                <td>{format!("{:.2}", self.results.avg_squirrels)}</td>
+                                                <td>{format!("{:.2}", self.results.avg_returns)}</td>
+                                                <td>{format!("{:.2}", self.results.avg_rolls)}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </figure>
                             </div>
-                        </div>
-                    </div>
-                </section>
+                        </footer>
+                    </article>
+                </main>
+
+                <footer class="container disclaimer">
+                    <small>
+                        {"Made by "}
+                        <a href="https://github.com/Cadiac">{"Jaakko Husso"}</a>
+                        {". The source code of this tool is "}
+                        <a href="https://github.com/Cadiac/goldfisher/blob/master/goldfisher-web/LICENSE">{"MIT"}</a>
+                        {" licensed, and can be found from "}
+                        <a href="https://github.com/Cadiac/goldfisher">{"here"}</a>
+                        {". The literal and graphical information presented on this site about Magic: The Gathering, 
+                        including the card images, the mana symbols, and Oracle text, is copyright Wizards of the Coast, 
+                        LLC, a subsidiary of Hasbro, Inc. This service is not affiliated with Wizards of the Coast."}
+                    </small>
+                </footer>
             </>
         }
     }

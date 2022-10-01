@@ -150,3 +150,11 @@ OPTIONS:
 [INFO ]                 Average returns: 2.00
 [INFO ] ============================================================
 ```
+
+## License
+
+This project is released under [MIT](https://github.com/Cadiac/comet/blob/master/LICENSE) license.
+
+[PicoCSS](https://picocss.com/), a minimal CSS Framework for semantic HTML is used for styles. A copy of the minimized css provided by the framework is included inside `vendor/pico` directory.
+
+The literal and graphical information presented on this site about Magic: The Gathering, including the card image `static/comet.jpeg`, the mana symbols, and Oracle text, is copyright Wizards of the Coast, LLC, a subsidiary of Hasbro, Inc. This service is not affiliated with Wizards of the Coast.
