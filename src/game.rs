@@ -18,14 +18,14 @@ pub struct GameResult {
 
 #[derive(Debug)]
 pub struct Game {
+    pub rolls: usize,
+    pub damage: u32,
+    pub squirrels: u32,
+    pub loyalty: i32,
+    pub activations_left: u32,
+    pub returns: usize,
     roll_advantage: usize,
-    rolls: usize,
-    returns: usize,
-    damage: u32,
-    squirrels: u32,
     include_squirrels: bool,
-    activations_left: u32,
-    loyalty: i32,
     target_dmg: u32,
 }
 
@@ -66,7 +66,11 @@ impl Game {
         }
     }
 
-    fn activate(&mut self) {
+    pub fn activate(&mut self) {
+        if self.loyalty <= 0 || self.activations_left == 0 {
+            return
+        }
+
         self.activations_left -= 1;
 
         let rolls_to_take = 1 + self.roll_advantage;

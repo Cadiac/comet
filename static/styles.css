@@ -36,6 +36,12 @@
   --switch-checked-background-color: var(--primary);
 }
 
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .title {
     margin-bottom: 0px;
 }
@@ -70,4 +76,19 @@
     font-size: 0.75em;
     text-align: center;
     color: var(--secondary);
+}
+
+.relative-container {
+  position: relative;
+}
+
+.loyalty {
+  float: left;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 7%;
+  padding-right: 10%;
+  font-size: min(2.5vw, 28.25px);
+  z-index: 2;
 }

@@ -3,7 +3,6 @@ use log::debug;
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlInputElement};
 use yew::prelude::*;
-use yew_router::prelude::*;
 
 use crate::game::{GameResult, Outcome};
 use crate::simulator::{Cmd, Simulator, Status};

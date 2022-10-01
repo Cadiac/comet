@@ -4,6 +4,7 @@ use yew_router::prelude::*;
 use comet::components::{
     footer::Footer,
     calculator::Calculator,
+    playground::Playground,
 };
 
 #[derive(Clone, Routable, PartialEq)]
@@ -16,7 +17,7 @@ enum Route {
 
 fn switch(routes: &Route) -> Html {
     match routes {
-        Route::Home => html! { <h1>{ "Home" }</h1> },
+        Route::Home => html! { <Playground/> },
         Route::Simulator => html! { <Calculator/> },
     }
 }
