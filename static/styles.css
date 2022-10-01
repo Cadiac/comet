@@ -67,6 +67,7 @@
 }
 
 .disclaimer {
+    font-size: 0.75em;
     text-align: center;
     color: var(--secondary);
 }
