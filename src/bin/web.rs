@@ -1,3 +1,5 @@
+use std::collections::BTreeMap;
+
 use gloo_worker::{Spawnable, WorkerBridge};
 use log::{debug};
 use wasm_bindgen::JsCast;
@@ -39,6 +41,10 @@ struct Results {
 
     total_rolls: u32,
     avg_rolls: f32,
+
+    damage_distribution: BTreeMap<u32, u32>,
+    squirrel_distribution: BTreeMap<u32, u32>,
+    returns_distribution: BTreeMap<u32, u32>,
 }
 
 pub struct App {
@@ -85,6 +91,10 @@ impl App {
             self.results.total_squirrels += squirrels;
             self.results.total_returns += returns as u32;
             self.results.total_rolls += rolls as u32;
+
+            *self.results.damage_distribution.entry(u32::min(20, damage)).or_insert(0) += 1;
+            *self.results.squirrel_distribution.entry(u32::min(20, squirrels)).or_insert(0) += 1;
+            *self.results.returns_distribution.entry(u32::min(20, returns as u32)).or_insert(0) += 1;
         }
 
         let total_simulations = u32::max(self.results.wins + self.results.losses, 1) as f32;
@@ -331,6 +341,105 @@ impl Component for App {
                                         </tbody>
                                     </table>
                                 </figure>
+                                <figure>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><abbr title="Damage dealt (capped at max 20)">{"Damage dealt"}</abbr></th>
+                                                <th><abbr title="Count of occurances at the simulation">{"Count"}</abbr></th>
+                                                <th><abbr title="Percentage">{"%"}</abbr></th>
+                                                <th><abbr title="">{""}</abbr></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                self.results.damage_distribution.iter().map(|(damage, count)| {
+                                                    let percentage = 100.0 * *count as f32 / progress as f32;
+                                                    html! {
+                                                        <tr>
+                                                            <td>{damage}</td>
+                                                            <td>{count}</td>
+                                                            <td>{format!("{percentage:.1}%")}</td>
+                                                            <td>
+                                                                <progress
+                                                                    class="progress primary distribution"
+                                                                    value={count.to_string()}
+                                                                    max={progress.to_string()}
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }).collect::<Html>()
+                                            }
+                                        </tbody>
+                                    </table>
+                                </figure>
+                                <figure>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><abbr title="Squirrels created (capped at max 20)">{"Squirrels created"}</abbr></th>
+                                                <th><abbr title="Count of occurances at the simulation">{"Count"}</abbr></th>
+                                                <th><abbr title="Percentage">{"%"}</abbr></th>
+                                                <th><abbr title="">{""}</abbr></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                self.results.squirrel_distribution.iter().map(|(damage, count)| {
+                                                    let percentage = 100.0 * *count as f32 / progress as f32;
+                                                    html! {
+                                                        <tr>
+                                                            <td>{damage}</td>
+                                                            <td>{count}</td>
+                                                            <td>{format!("{percentage:.1}%")}</td>
+                                                            <td>
+                                                                <progress
+                                                                    class="progress primary distribution"
+                                                                    value={count.to_string()}
+                                                                    max={progress.to_string()}
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }).collect::<Html>()
+                                            }
+                                        </tbody>
+                                    </table>
+                                </figure>
+                                <figure>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><abbr title="Cards returned to hand (capped at max 20)">{"Cards returned"}</abbr></th>
+                                                <th><abbr title="Count of occurances at the simulation">{"Count"}</abbr></th>
+                                                <th><abbr title="Percentage">{"%"}</abbr></th>
+                                                <th><abbr title="">{""}</abbr></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                self.results.returns_distribution.iter().map(|(damage, count)| {
+                                                    let percentage = 100.0 * *count as f32 / progress as f32;
+                                                    html! {
+                                                        <tr>
+                                                            <td>{damage}</td>
+                                                            <td>{count}</td>
+                                                            <td>{format!("{percentage:.1}%")}</td>
+                                                            <td>
+                                                                <progress
+                                                                    class="progress primary distribution"
+                                                                    value={count.to_string()}
+                                                                    max={progress.to_string()}
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }).collect::<Html>()
+                                            }
+                                        </tbody>
+                                    </table>
+                                </figure>
                             </div>
                         </footer>
                     </article>
@@ -339,7 +448,7 @@ impl Component for App {
                 <footer class="container disclaimer">
                     <small>
                         {"Made by "}
-                        <a href="https://github.com/Cadiac">{"Jaakko Husso"}</a>
+                        <a href="https://github.com/Cadiac">{"Cadiac"}</a>
                         {". The source code of this tool is "}
                         <a href="https://github.com/Cadiac/goldfisher/blob/master/goldfisher-web/LICENSE">{"MIT"}</a>
                         {" licensed, and can be found from "}

@@ -70,3 +70,8 @@
     text-align: center;
     color: var(--secondary);
 }
+
+.distribution {
+  margin-bottom: 0;
+  min-width: 200px;
+}
