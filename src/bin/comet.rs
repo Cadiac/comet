@@ -4,7 +4,7 @@ use std::error::Error;
 
 use rayon::prelude::*;
 
-use comet::game::{Outcome, Game};
+use comet::game::{Game, Outcome};
 
 #[macro_use]
 extern crate log;
@@ -67,7 +67,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut total_returns = 0;
 
     for game in results {
-        total_damage += game.damage;
+        total_damage += if cli.squirrels {
+            game.damage + game.squirrels
+        } else {
+            game.damage
+        };
         total_rolls += game.rolls;
         total_squirrels += game.squirrels;
         total_returns += game.returns;
@@ -80,7 +84,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     info!("=======================[ RESULTS ]==========================");
     info!("                 Win percentage: {win_percentage:.2}%");
-    info!("                 Average damage: {average_damage:.2}");
+    info!("           Average total damage: {average_damage:.2}");
     info!("              Average squirrels: {average_squirrels:.2}");
     info!("                  Average rolls: {average_rolls:.2}");
     info!("                Average returns: {average_returns:.2}");

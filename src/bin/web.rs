@@ -1,13 +1,13 @@
 use std::collections::BTreeMap;
 
 use gloo_worker::{Spawnable, WorkerBridge};
-use log::{debug};
+use log::debug;
 use wasm_bindgen::JsCast;
 use web_sys::{EventTarget, HtmlInputElement};
 use yew::prelude::*;
 
-use comet::game::{Outcome, GameResult};
-use comet::simulator::{Simulator, Status, Cmd};
+use comet::game::{GameResult, Outcome};
+use comet::simulator::{Cmd, Simulator, Status};
 
 #[derive(Debug)]
 pub enum Msg {
@@ -29,7 +29,7 @@ struct Results {
     wins: u32,
     losses: u32,
     win_percentage: f32,
-    
+
     total_damage: u32,
     avg_damage: f32,
 
@@ -62,10 +62,10 @@ pub struct App {
 
     /// Damage required to win for win
     damage: u32,
-    
+
     /// Error message from simulation
     error_msg: Option<String>,
-    
+
     /// Simulation progress
     progress: (usize, usize),
 
@@ -76,25 +76,55 @@ pub struct App {
     worker: WorkerBridge<Simulator>,
 
     /// Is the simulator busy running
-    is_busy: bool
+    is_busy: bool,
 }
 
 impl App {
     fn update_results(&mut self, new_results: Vec<GameResult>) {
-        for GameResult { outcome, damage, squirrels, rolls, returns } in new_results.into_iter() {
+        for GameResult {
+            outcome,
+            damage,
+            squirrels,
+            rolls,
+            returns,
+        } in new_results.into_iter()
+        {
             match outcome {
                 Outcome::Win => self.results.wins += 1,
                 Outcome::Lose => self.results.losses += 1,
             }
 
-            self.results.total_damage += damage;
+            self.results.total_damage += if self.squirrels {
+                damage + squirrels
+            } else {
+                damage
+            };
             self.results.total_squirrels += squirrels;
             self.results.total_returns += returns as u32;
             self.results.total_rolls += rolls as u32;
 
-            *self.results.damage_distribution.entry(u32::min(20, damage)).or_insert(0) += 1;
-            *self.results.squirrel_distribution.entry(u32::min(20, squirrels)).or_insert(0) += 1;
-            *self.results.returns_distribution.entry(u32::min(20, returns as u32)).or_insert(0) += 1;
+            *self
+                .results
+                .damage_distribution
+                .entry(u32::min(
+                    20,
+                    if self.squirrels {
+                        damage + squirrels
+                    } else {
+                        damage
+                    },
+                ))
+                .or_insert(0) += 1;
+            *self
+                .results
+                .squirrel_distribution
+                .entry(u32::min(20, squirrels))
+                .or_insert(0) += 1;
+            *self
+                .results
+                .returns_distribution
+                .entry(u32::min(20, returns as u32))
+                .or_insert(0) += 1;
         }
 
         let total_simulations = u32::max(self.results.wins + self.results.losses, 1) as f32;
@@ -206,8 +236,7 @@ impl Component for App {
     fn view(&self, ctx: &Context<Self>) -> Html {
         let link = ctx.link();
 
-        let is_ready = !self.is_busy
-            && self.simulations > 0;
+        let is_ready = !self.is_busy && self.simulations > 0;
 
         let (progress, total_games) = self.progress;
 
@@ -289,8 +318,8 @@ impl Component for App {
 
                                 <div class="buttons">
                                     <div class={if is_ready { "primary" } else { "primary outline" }}
-                                        type="submit"    
-                                        role="button" 
+                                        type="submit"
+                                        role="button"
                                         disabled={!is_ready}
                                         aria-busy={if !is_ready { "true" } else { "" }}
                                         onclick={link.callback(|_| Msg::BeginSimulation)}>
@@ -453,7 +482,7 @@ impl Component for App {
                         <a href="https://github.com/Cadiac/goldfisher/blob/master/goldfisher-web/LICENSE">{"MIT"}</a>
                         {" licensed, and can be found from "}
                         <a href="https://github.com/Cadiac/goldfisher">{"here"}</a>
-                        {". The literal and graphical information presented on this site about Magic: The Gathering, 
+                        {". The literal and graphical information presented on this site about Magic: The Gathering,
                         including the card images, the mana symbols, and Oracle text, is copyright Wizards of the Coast, 
                         LLC, a subsidiary of Hasbro, Inc. This service is not affiliated with Wizards of the Coast."}
                     </small>
